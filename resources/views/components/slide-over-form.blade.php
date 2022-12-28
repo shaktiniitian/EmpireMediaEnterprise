@@ -1,21 +1,23 @@
+
 <div class="container text-left">
     <div {{ $attributes }} wire:ignore.self class="modal left fade text-left" tabindex="-1" role="dialog"
         aria-labelledby="Model{{$attributes }}">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                            aria-hidden="true">&times;</span>
+                    </button>
                     <h4 class="modal-title">{{$title?? ''}}</h4>
                 </div>
 
                 <div class="modal-body">
                     <div>
+                        
                         @if (session()->has('message'))
-                            <div class="alert alert-success">
-                                {{ session('message') }}
-                            </div>
+                        <div class="alert alert-success">
+                            {{ session('message') }}
+                        </div>
                         @endif
                     </div>
                     @if ($attributes['id'])
@@ -29,7 +31,6 @@
                             <x-button wire:loading.attr="disabled" type="submit" class="btn btn-default">{{
                                 $attributes['btn'] ?? 'Submit' }}</x-button>
                         </div>
-
                     </form>
                     @endif
 

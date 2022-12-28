@@ -29,7 +29,6 @@ class CategoriesTable extends DataTableComponent
         $this->setColumnSelectDisabled();
         $this->setFilterLayoutSlideDown();
         $this->setQueryStringDisabled();
-
     }
 
     public function columns(): array
@@ -54,6 +53,7 @@ class CategoriesTable extends DataTableComponent
                         ->attributes(function ($row) {
                             return [
                                 'class' => 'btn btn-primary btn-xs',
+                                'data-toggle' => "modal", 'data-target' => "#open",
                                 'wire:click' => "\$emit('onCategoryEdit', {$row->id})",
                             ];
                         }),
@@ -63,6 +63,7 @@ class CategoriesTable extends DataTableComponent
                         ->attributes(function ($row) {
                             return [
                                 'class' => 'btn btn-danger btn-xs',
+                                'data-toggle' => "modal", 'data-target' => "#open",
                                 'wire:click' => "\$emit('onCategoryDelete', {$row->id})",
                             ];
                         }),
@@ -85,7 +86,5 @@ class CategoriesTable extends DataTableComponent
 
         $this->clearSelected();
         return Excel::download(new CategoriesExport, 'categories.xlsx');
-
     }
-
 }

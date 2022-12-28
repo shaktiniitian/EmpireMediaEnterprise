@@ -13,17 +13,25 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{ asset('css/fontawesome-free/css/all.min.css')}}">
 
-    {{--
-    <link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet"> --}}
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('/js/alpine.min.js') }}" defer>
-
     @livewireStyles
+    @wireUiStyles
+
+    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
+
+    {{-- <link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Scripts -->
+   <script src="{{ mix('js/app.js') }}" defer></script>
+
+   @wireUiScripts
+   @livewireScripts
+   
+   <script src="{{ asset('js/alpinejs/alpinejs.min.js') }}" defer></script>
 </head>
 
 <body class="hold-transition {{ !Auth::user() ? 'login-page' : 'sidebar-mini' }} ">
     <div id="app" class="{{ !Auth::user() ? 'login-box' : 'wrapper' }}">
-
+        <x-notifications position="top-right" />
         @if(Auth::user())
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
@@ -284,10 +292,9 @@
 
         @yield('content')
 
-        <script src="{{ asset('js/jquery.min.js') }}" defer></script>
-        <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
+        {{-- <script src="{{ asset('js/jquery.min.js') }}" defer></script> --}}
+        {{-- <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script> --}}
         <script src="{{ asset('js/adminlte.js') }}" defer></script>
-        @livewireScripts
         @yield('scripts')
 
 </body>

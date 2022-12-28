@@ -1,5 +1,7 @@
 <div>
-    <button  data-toggle="modal" data-target="#open" class="btn btn-primary btn-md">New</button>
+    <button wire:click.defer='onNew' data-toggle="modal" data-target="#open" class="btn btn-primary btn-md">New</button>
+
+    <button wire:click.defer="Notify">Notify</button>
 
     <x-slide-over-form id="open" title="Add/update Category">
 
