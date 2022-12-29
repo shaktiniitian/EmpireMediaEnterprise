@@ -2,13 +2,12 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Models\Category;
 use Livewire\Component;
 use WireUi\Traits\Actions;
+use App\Models\Admin\Plan;
 
-class CategoryForm extends Component
+class PlanForm extends Component
 {
-
     use Actions;
 
     public $open = true;
@@ -16,17 +15,21 @@ class CategoryForm extends Component
     public $item = [];
     public static $INITIAL_VALUE = [
         "name" => '',
+        "description" => '',
+        "amount" => '',
         "active" => true,
     ];
-    
+
 
     protected $rules = [
         'item.name' => 'required|min:3',
+        'item.amount' => 'required|min:3',
         'item.active' => 'required',
     ];
 
     protected $validationAttributes = [
-        'item.name' => 'name'
+        'item.name' => 'name',
+        'item.amount' => 'amount'
     ];
 
     public function updated($propertyName)
@@ -35,11 +38,11 @@ class CategoryForm extends Component
     }
 
 
-    protected $listeners = ['onCategoryEdit' => 'onEdit', 'onCategoryDelete' => 'onDelete'];
+    protected $listeners = ['onPlanEdit' => 'onEdit', 'onPlanDelete' => 'onDelete'];
 
     public function render()
     {
-        return view('livewire.admin.category-form');
+        return view('livewire.admin.plan-form');
     }
 
     public function mount()
@@ -50,43 +53,43 @@ class CategoryForm extends Component
 
     public function onEdit($id)
     {
-        $this->item = Category::find($id)->toArray();
+        $this->item = Plan::find($id)->toArray();
     }
 
-    public function Notify(){
+    public function Notify()
+    {
 
-        $this->notification()->success('Your profile was successfully saved'); 
+        $this->notification()->success('Your profile was successfully saved');
     }
 
     public function onNew()
     {
- 
- 
         $this->item = self::$INITIAL_VALUE;
-
     }
 
     public function onSave()
     {
         $this->validate();
 
-        if(!empty($this->item['id'])){
-            Category::where('id',$this->item['id'])->update([
+        if (!empty($this->item['id'])) {
+            Plan::where('id', $this->item['id'])->update([
                 "name" => $this->item['name'],
+                "description" => $this->item['description'],
+                "amount" => $this->item['amount'],
                 "active" => $this->item['active'] ? 1 : 0
             ]);
-        }else{
-        Category::create([
-            "name" => $this->item['name'],
-            "type" => 'channel',
-            "active" => $this->item['active'] ? 1 : 0
-        ]);
-    }
-    $this->item = self::$INITIAL_VALUE;
-    $this->emit('refreshDatatable');
-    // session()->flash('message', 'Category successfully created.');
+        } else {
+            Plan::create([
+                "name" => $this->item['name'],
+                "description" => $this->item['description'],
+                "amount" => $this->item['amount'],
+                "active" => $this->item['active'] ? 1 : 0
+            ]);
+        }
+        $this->item = self::$INITIAL_VALUE;
+        $this->emit('refreshDatatable');
         $this->emit('open');
-        $this->notification()->success('Category successfully created.'); 
+        $this->notification()->success('Plan successfully created.');
     }
 
     public function onDelete($id)
@@ -95,7 +98,7 @@ class CategoryForm extends Component
             'title' => 'Are you Sure?',
             'icon' => 'exclamation-circle',
             'iconColor' => 'text-yellow-600',
-            'description' => 'Do you really want to delete this category? This action can not be undone.',
+            'description' => 'Do you really want to delete this Plan? This action can not be undone.',
             'accept' => [
                 'label' => 'Yes, Delete it',
                 'method' => 'doDelete',
@@ -112,8 +115,8 @@ class CategoryForm extends Component
 
     public function doDelete($id)
     {
-        Category::find($id)->delete();
-        $this->notification()->success('Category Deleted!');
+        Plan::find($id)->delete();
+        $this->notification()->success('Plan Deleted!');
         $this->emit('refreshDatatable');
     }
 }

@@ -1,22 +1,19 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Admin;
 
-use App\Exports\CategoriesExport;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
-use Maatwebsite\Excel\Facades\Excel;
 
-use App\Models\Category;
+use App\Models\Admin\Plan;
 
-class CategoriesTable extends DataTableComponent
+class PlansTable extends DataTableComponent
 {
-    protected $model = Category::class;
+    protected $model = Plan::class;
 
     public function configure(): void
     {
@@ -34,13 +31,16 @@ class CategoriesTable extends DataTableComponent
                 ->sortable(),
             Column::make("Name", "name")
                 ->sortable(),
+            Column::make("Description", "description")
+                ->sortable(),
+            Column::make("Amount", "amount")
+                ->sortable(),
+            BooleanColumn::make("Active", "active")
+                ->sortable(),
             Column::make("Created at", "created_at")
                 ->sortable()->format(function ($value) {
                     return $value->format('d M Y, h:i A');
                 }),
-            BooleanColumn::make("Active", "active")
-                ->sortable(),
-
             ButtonGroupColumn::make('Actions', 'id')
                 ->buttons([
                     LinkColumn::make('Actions')
@@ -50,7 +50,7 @@ class CategoriesTable extends DataTableComponent
                             return [
                                 'class' => 'btn btn-primary btn-xs',
                                 'data-toggle' => "modal", 'data-target' => "#open",
-                                'wire:click' => "\$emit('onCategoryEdit', {$row->id})",
+                                'wire:click' => "\$emit('onPlanEdit', {$row->id})",
                             ];
                         }),
                     LinkColumn::make('Actions')
@@ -59,17 +59,13 @@ class CategoriesTable extends DataTableComponent
                         ->attributes(function ($row) {
                             return [
                                 'class' => 'btn btn-danger btn-xs',
-                                'wire:click' => "\$emit('onCategoryDelete', {$row->id})",
+                                'wire:click' => "\$emit('onPlanDelete', {$row->id})",
                             ];
                         }),
                 ]),
+
         ];
     }
-
-    // public function builder(): Builder
-    // {
-    //     return Category::query(); // Select some things
-    // }
 
     public array $bulkActions = [
         'exportSelected' => 'Export',

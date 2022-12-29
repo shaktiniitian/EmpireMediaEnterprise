@@ -12,14 +12,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <div>
-                        
-                        @if (session()->has('message'))
-                        <div class="alert alert-success">
-                            {{ session('message') }}
-                        </div>
-                        @endif
-                    </div>
+  
                     @if ($attributes['id'])
                     <form wire:submit.prevent="{{ $attributes['onSubmit'] ?? 'onSave' }}"
                         class="flex-1 flex flex-col justify-between">

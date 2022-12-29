@@ -9,7 +9,7 @@
           <h1 class="m-0">{{$title}}</h1>
         </div>
         <div class="col-md-6 text-right">
-          @if($forms)
+          @if(count($forms) > 0)
           @foreach($forms as $form)
           @livewire($form)
           @endforeach
@@ -20,8 +20,6 @@
   </div>
   <section class="content">
     <div class="container-fluid">
-
-
       @livewire($cname, $data)
     </div>
   </section>

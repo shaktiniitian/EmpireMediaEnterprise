@@ -1,10 +1,6 @@
 <div>
     <button wire:click.defer='onNew' data-toggle="modal" data-target="#open" class="btn btn-primary btn-md">New</button>
-
-    <button wire:click.defer="Notify">Notify</button>
-
     <x-slide-over-form id="open" title="Add/update Category">
-
         <div class="form-group">
             <label for="title">Enter Name</label>
             <input type="text" class="form-control" wire:model="item.name">

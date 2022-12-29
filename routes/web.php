@@ -24,8 +24,5 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/categories', [HomeController::class, 'categories'])->name('categories');
+    Route::get('/plans', [HomeController::class, 'plans'])->name('plans');
 });
-
-
-
-

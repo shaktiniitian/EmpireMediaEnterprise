@@ -35,4 +35,14 @@ class HomeController extends Controller
             'data' => []
         ]);
     }
+
+    public function plans()
+    {
+        return view('admin.admin',[
+            'title' => 'Plans',
+            'cname' => 'admin.plans-table',
+            'forms' => ['admin.plan-form'],
+            'data' => []
+        ]);
+    }
 }

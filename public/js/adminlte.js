@@ -3,3 +3,5 @@ window.livewire.on('open', () => {
 });
 Livewire.emit('refreshDatatable')
 
+
+

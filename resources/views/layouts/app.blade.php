@@ -27,11 +27,15 @@
    @livewireScripts
    
    <script src="{{ asset('js/alpinejs/alpinejs.min.js') }}" defer></script>
+   <script src="{{ asset('js/alpinejs/popper.min.js') }}" defer></script>
 </head>
 
 <body class="hold-transition {{ !Auth::user() ? 'login-page' : 'sidebar-mini' }} ">
+    <x-dialog  />
+    <x-notifications position="top-right" />
+
     <div id="app" class="{{ !Auth::user() ? 'login-box' : 'wrapper' }}">
-        <x-notifications position="top-right" />
+
         @if(Auth::user())
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
@@ -152,7 +156,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('admin.plans') }}" class="nav-link">
                                 <i class="nav-icon fas fa-money-check"></i>
                                 <p>
                                     Plans
@@ -293,7 +297,7 @@
         @yield('content')
 
         {{-- <script src="{{ asset('js/jquery.min.js') }}" defer></script> --}}
-        {{-- <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script> --}}
+        <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
         <script src="{{ asset('js/adminlte.js') }}" defer></script>
         @yield('scripts')
 
